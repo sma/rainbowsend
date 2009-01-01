@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<title>Guide to Rainbow's End</title>
+		<meta http-equiv='Content-Type' content=' text/html; charset=utf-8' />
 		<style type="text/css">
 			html { margin: 0; padding: 0; background: #FFE; }
 			body { margin: 0 auto; padding: 1em; width: 700px; background: white; border: 1px solid #EEA; font-family: Georgia, serif; font-size: 11pt; }
@@ -18,4 +19,504 @@
 		<p>Rainbow's End ist ein Play by EMail (PBEM) Spiel von Russell Wallace.</p>
 		<p>Stefan Matthias Aust hat das Spiel in <a href="http://www.ruby-lang.org/de">Ruby</a> neu implementiert.</p>
 		<h2>Spielprinzip</h2>
-		<p>Das Spiel l
+		<p>Das Spiel läuft in Runden ab. Jedem Spieler liegt jede Runde ein <a href="#report">Report</a> vor, der den aktuellen Spielstand beschreibt. Jeder Spieler reicht neue <a href="#orders">Befehle</a> ein, die dann zentral ausgewertet werden und erhalten einen Report für die nächste Runde.</p>
+		<p>Reports und Befehle werden per E-Mail verschickt.</p>
+
+		<h2>Bedienung</h2>
+		<h3>Setup</h3>
+		<p>Um ein neues Spiel zu beginnen, muss eine Datei <code>players</code> angelegt werden, die pro Zeile eine EMail-Adresse enthält.</p>
+		<p>In der Datei <code>options.rb</code> muss die Kartengröße, das Startgeld und die Anzahl der Computerspieler eingestellt werden.</p>
+		<p>Jetzt muss</p>
+		<pre>./main.rb --new</pre>
+		<p>aufgerufen werden. Dies erzeugt eine Anzahl von Reportdateien namens <code><i>nummer</i>.r</code>, eine Datei <code>send.txt</code>, die für das Versenden der Reports benötigt wird, und den initialen Spielstand in der Datei <code>game</code>.</p>
+		<p>Achtung: Diese Dateien werden in Folge immer wieder überschrieben und sollte jeweils in ein anderes Verzeichnis abgespeichert werden.</p>
+		<h3>Reports verschicken</h3>
+		<p>Rufe</p>
+		<pre>./sendreports.rb</pre>
+		<p>auf, um die Reports an die Spieler zu verschicken. Die Datei <code>send.txt</code> definiert, welche Report-Datei an welche E-Mail-Adresse geschickt wird.</p>
+		<p>Die SMTP und POP3-Einstellungen müssen in <code>sendreports.rb</code> angepasst werden.</p>
+		<h3>Spielzug durchführen</h3>
+		<p>Zum Abrufen der E-Mails mit den Spielzügen, rufe</p>
+		<pre>./getorders.rb &gt;orders [--delete]</pre>
+		<p>auf. Das <code>--delete</code> ist optional und löscht die E-Mails vom POP3-Server.</p>
+		<p>Alle Befehle werden in einer Datei <code>orders</code> gespeichert.</p>
+		<p>Rufe jetzt</p>
+		<pre>./main.rb --turn</pre>
+		<p>auf, um die Befehle zu verarbeiten. Es werden neue Reportdateien namens <code><i>nummer</i>.r</code> und eine Datei <code>send.txt</code> erstellt und die Datei <code>game</code> wird mit dem neuen Spielstand überschrieben.</p>
+		<p>Verschicke danach die Reports wie oben beschrieben.</p>
+		<h3>Karte erstellen</h3>
+		<p>Mit dem Befehl</p>
+		<pre>./makemap &lt;<i>nummer</i>.r &gt;map.txt</pre>
+		<p>kann eine Geländekarte aus dem aktuellen Report erzeugt werden.</p>
+
+		<h2>Dateien</h2>
+		<dl>
+			<dt>ai.rb</dt>
+			<dd>generates orders for computer player (unfinished)</dd>
+			<dt>entity.rb</dt>
+			<dd>common superclass for units and players</dd>
+			<dt>game.rb</dt>
+			<dd>loop to process one turn</dd>
+			<dt>getorders.rb</dt>
+			<dd>command line tool to download orders via POP</dd>
+			<dt>main.rb</dt>
+			<dd>command line tool to run the game</dd>
+			<dt>makemap.rb</dt>
+			<dd>command line tool to create a hex map from a report file</dd>
+			<dt>map.rb</dt>
+			<dd>classes to manage the game map</dd>
+			<dt>message</dt>
+			<dd>some text that is added to all reports</dd>
+			<dt>misc.rb</dt>
+			<dd>helper methods</dd>
+			<dt>options.rb</dt>
+			<dd>game options like number of players, map size or starting money</dd>
+			<dt>order.rb</dt>
+			<dd>creates an in-game representation of player's orders</dd>
+			<dt>parse.rb</dt>
+			<dd>order parser</dd>
+			<dt>player.rb</dt>
+			<dd>class to represent players</dd>
+			<dt>readme.html</dt>
+			<dd>this file</dd>
+			<dt>rules.html</dt>
+			<dd>the rules</dd>
+			<dt>rules.rb</dt>
+			<dd>implements the game rules and processes all oders</dd>
+			<dt>save.rb</dt>
+			<dd>persists a game</dd>
+			<dt>sendreports.rb</dt>
+			<dd>command line tool to send reports to players</dd>
+			<dt>unit.rb</dt>
+			<dd>represents game units like settlers, cities, or tanks</dd>
+			<dt>writerpt.rb</dt>
+			<dd>creates the game reports</dd>
+		</dl>
+
+		<h2>Appendix</h2>
+		<h3 id="report">Beispielreport</h3>
+<pre>
+Rainbow's End is a PBEM game written by Russell Wallace
+This version of the game was coded in Ruby by Stefan Matthias Aust
+For more information about the language Ruby see www.ruby-lang.org
+
+Rainbow's End Turn 34
+Duestermark [6]
+
+Game totals
+  Players:      4
+  Map size:     25x25
+  Money:        370
+  Cities:       42
+  Other units:  106
+
+Player summary
+  number  relations  money  units
+  ------  ---------  -----  -----
+  1       hostile      201    101
+  4       hostile       81     29
+  6       n/a           51      9
+  3       hostile       37      9
+  ------  ---------  -----  -----
+                       370    148
+
+Player details
+--------------
+
+Kalamath [1]
+  Email:        ...
+  Relations:    hostile
+  Money:        201
+  Cities:       31
+  Other units:  70
+
+Sangamon [3]
+  Email:        ...
+  Relations:    hostile
+  Money:        37
+  Cities:       2
+  Other units:  7
+
+Foundation [4]
+  Email:        ...
+  Relations:    hostile
+  Money:        81
+  Cities:       7
+  Other units:  22
+
+Duestermark [6]
+  Email:        ...
+  Relations:    n/a
+  Money:        51
+  Cities:       2
+  Other units:  7
+
+Unit summary: Kalamath [1]
+  number  type        x   y  group
+  ------  ---------  --  --  -----
+     241  tanks       7  13  none
+     239  tanks       7  13  none
+     237  tanks       7  13  none
+     228  tanks       4  12  none
+     225  artillery   6  13  none
+     224  tanks       4  12  none
+     221  tanks       6  13  none
+     218  tanks       4  12  none
+     217  tanks       4  12  none
+     210  tanks       4  12  none
+      51  settlers    4  10  none
+      17  mechs       4  12  none
+      15  city        7  13  none
+  ------  ---------  --  --  -----
+
+Unit summary: Duestermark [6]
+  number  type        x   y  group
+  ------  ---------  --  --  -----
+    2205  tanks       2  10  none
+    2203  tanks       3  11  none
+    2201  tanks       5  12  none
+       6  city        0  12  none
+       1  city        2  10  none
+    1002  infantry    2  10  none
+    1181  infantry    5  12  none
+    2204  tanks       5  12  none
+    2212  tanks       2  11  none
+  ------  ---------  --  --  -----
+
+Unit details
+------------
+
+Markland [2]
+  1:&gt; drop
+  1:Dropped.
+
+settlers [501]
+  2:Incoming fire from artillery [1-225] (artillery) in mountain [6/13] - destroyed.
+
+Alamut [3]
+  5:Captured by Ancient Battlemechs [1-22].
+
+tanks [2205]
+  1:Incoming fire from Ancient Battlemechs [1-17] (mechs) in mountain [4/10] - survived.
+
+  Type:          tanks
+  Location:      forest [2/10]
+  Grouped with:  None
+
+tanks [2203]
+  2:Attacking and destroying scouts [1-101] (scouts).
+
+  Type:          tanks
+  Location:      forest [3/11]
+  Grouped with:  None
+
+tanks [2201]
+  2:Incoming fire from artillery [1-225] (artillery) in mountain [6/13] - survived.
+  2:&gt; move 5/12
+  2:Moved from plain [4/12] to plain [5/12].
+
+  Type:          tanks
+  Location:      plain [5/12]
+  Grouped with:  None
+
+Amsee [6]
+  Type:          city
+  Location:      plain [0/12]
+  Grouped with:  None
+
+Duesternbrook [1]
+  1:Incoming fire from Ancient Battlemechs [1-17] (mechs) in mountain [4/10] - survived.
+
+  Type:          city
+  Location:      forest [2/10]
+  Grouped with:  None
+
+2. Inf Duester [1002]
+  1:Incoming fire from Ancient Battlemechs [1-17] (mechs) in mountain [4/10] - survived.
+
+  Type:          infantry
+  Location:      forest [2/10]
+  Grouped with:  None
+
+1st.Inf Gorge [1181]
+  1:&gt; move 4/13
+  1:Moved from plain [4/14] to forest [4/13].
+  2:&gt; move 5/12
+  2:Moved from forest [4/13] to plain [5/12].
+
+  Type:          infantry
+  Location:      plain [5/12]
+  Grouped with:  None
+
+tanks [2204]
+  2:Incoming fire from artillery [1-225] (artillery) in mountain [6/13] - survived.
+  2:&gt; move 5/12
+  2:Moved from plain [4/12] to plain [5/12].
+
+  Type:          tanks
+  Location:      plain [5/12]
+  Grouped with:  None
+
+tanks [2212]
+  Type:          tanks
+  Location:      plain [2/11]
+  Grouped with:  None
+
+Hex summary
+   x   y  terrain   city
+  --  --  --------  ----
+   1   8  water      n/a
+   2   8  water      n/a
+   3   8  water      n/a
+   0   9  water      n/a
+   1   9  plain      yes
+   2   9  water      n/a
+   3   9  water      n/a
+   4   9  water      n/a
+   0  10  plain      yes
+   1  10  plain      yes
+   2  10  forest     yes
+   3  10  water      n/a
+   4  10  mountain   yes
+   5  10  water      n/a
+   0  11  mountain   yes
+   1  11  plain      yes
+   2  11  plain      yes
+   3  11  forest     yes
+   4  11  mountain   yes
+   5  11  mountain   yes
+   6  11  water      n/a
+   7  11  forest     yes
+   0  12  plain      yes
+   1  12  water      n/a
+   2  12  mountain   yes
+   3  12  plain      no
+   4  12  plain      no
+   5  12  plain      yes
+   6  12  water      n/a
+   7  12  plain      yes
+   0  13  plain      yes
+   1  13  plain      yes
+   2  13  mountain   yes
+   3  13  forest     no
+   4  13  forest     no
+   5  13  mountain   yes
+   6  13  mountain   yes
+   7  13  forest     yes
+   0  14  mountain   yes
+   4  14  plain      yes
+   5  14  plain      yes
+   6  14  plain      yes
+  --  --  --------  ----
+
+Hex details
+-----------
+
+forest [2/10]
+  1:Incoming fire from Ancient Battlemechs [1-17] (mechs) in mountain [4/10].
+  1:Duesternbrook [6-1] (city) survived.
+  1:2. Inf Duester [6-1002] (infantry) survived.
+  1:tanks [6-2205] (tanks) survived.
+
+  * tanks [6-2205] (tanks)
+  * Duesternbrook [6-1] (city)
+  * 2. Inf Duester [6-1002] (infantry)
+
+  City area:  Yes
+
+mountain [4/10]
+  1:tanks [1-210] (tanks) moved to [4/11].
+  1:settlers [1-51] (settlers) arrived from [5/9].
+  1:tanks [1-217] (tanks) moved to [4/11].
+  1:scouts [1-101] (scouts) moved to [4/11].
+  1:tanks [1-224] (tanks) moved to [4/11].
+  1:tanks [1-218] (tanks) moved to [4/11].
+  1:tanks [1-228] (tanks) moved to [4/11].
+  2:Ancient Battlemechs [1-17] (mechs) moved to [4/11].
+
+  - settlers [1-51] (settlers)
+
+  City area:  Yes
+
+plain [2/11]
+  * tanks [6-2212] (tanks)
+
+  City area:  Yes
+
+forest [3/11]
+  2:scouts [1-101] (scouts) arrived from [4/11].
+  2:tanks [6-2203] (tanks) attacks and destroys scouts [1-101] (scouts).
+
+  * tanks [6-2203] (tanks)
+
+  City area:  Yes
+
+mountain [4/11]
+  1:tanks [1-210] (tanks) arrived from [4/10].
+  1:tanks [1-217] (tanks) arrived from [4/10].
+  1:scouts [1-101] (scouts) arrived from [4/10].
+  1:tanks [1-224] (tanks) arrived from [4/10].
+  1:tanks [1-218] (tanks) arrived from [4/10].
+  1:tanks [1-228] (tanks) arrived from [4/10].
+  2:Ancient Battlemechs [1-17] (mechs) arrived from [4/10].
+  2:tanks [1-218] (tanks) moved to [4/12].
+  2:tanks [1-217] (tanks) moved to [4/12].
+  2:tanks [1-228] (tanks) moved to [4/12].
+  2:tanks [1-210] (tanks) moved to [4/12].
+  2:scouts [1-101] (scouts) moved to [3/11].
+  2:tanks [1-224] (tanks) moved to [4/12].
+  3:Ancient Battlemechs [1-17] (mechs) moved to [4/12].
+
+  City area:  Yes
+
+plain [0/12]
+  * Amsee [6-6] (city)
+
+  City area:  Yes
+
+plain [4/12]
+  1:Markland [6-2] (city) dropped.
+  2:Incoming fire from artillery [1-225] (artillery) in mountain [6/13].
+  2:tanks [6-2204] (tanks) survived.
+  2:tanks [6-2201] (tanks) survived.
+  2:settlers [6-501] (settlers) destroyed.
+  2:tanks [1-218] (tanks) arrived from [4/11].
+  2:tanks [1-217] (tanks) arrived from [4/11].
+  2:tanks [1-228] (tanks) arrived from [4/11].
+  2:tanks [1-210] (tanks) arrived from [4/11].
+  2:tanks [6-2204] (tanks) moved to [5/12].
+  2:tanks [1-224] (tanks) arrived from [4/11].
+  2:tanks [6-2201] (tanks) moved to [5/12].
+  3:Ancient Battlemechs [1-17] (mechs) arrived from [4/11].
+
+  - tanks [1-228] (tanks)
+  - tanks [1-224] (tanks)
+  - tanks [1-218] (tanks)
+  - tanks [1-217] (tanks)
+  - tanks [1-210] (tanks)
+  - Ancient Battlemechs [1-17] (mechs)
+
+  City area:  No
+
+plain [5/12]
+  1:tanks [1-221] (tanks) moved to [6/13].
+  2:tanks [6-2204] (tanks) arrived from [4/12].
+  2:tanks [6-2201] (tanks) arrived from [4/12].
+  2:1st.Inf Gorge [6-1181] (infantry) arrived from [4/13].
+
+  * tanks [6-2201] (tanks)
+  * 1st.Inf Gorge [6-1181] (infantry)
+  * tanks [6-2204] (tanks)
+
+  City area:  Yes
+
+forest [4/13]
+  1:1st.Inf Gorge [6-1181] (infantry) arrived from [4/14].
+  2:1st.Inf Gorge [6-1181] (infantry) moved to [5/12].
+
+  City area:  No
+
+mountain [6/13]
+  1:artillery [1-225] (artillery) arrived from [7/13].
+  1:tanks [1-221] (tanks) arrived from [5/12].
+
+  - artillery [1-225] (artillery)
+  - tanks [1-221] (tanks)
+
+  City area:  Yes
+
+forest [7/13]
+  2:tanks [1-220] (tanks) moved to [7/14].
+  2:tanks [1-239] (tanks) built.
+  3:tanks [1-241] (tanks) built.
+
+  - tanks [1-241] (tanks)
+  - tanks [1-239] (tanks)
+  - tanks [1-237] (tanks)
+  - Kalamath [1-15] (city)
+
+  City area:  Yes
+
+plain [4/14]
+  1:1st.Inf Gorge [6-1181] (infantry) moved to [4/13].
+
+  City area:  Yes
+
+plain [6/14]
+  1:Ancient Battlemechs [1-22] (mechs) moved to [6/15].
+
+  City area:  Yes
+
+plain [5/15]
+  4:Ancient Battlemechs [1-22] (mechs) arrived from [6/15].
+  5:Ancient Battlemechs [1-22] (mechs) moved to [4/16].
+
+forest [6/15]
+  1:Ancient Battlemechs [1-22] (mechs) arrived from [6/14].
+  2:tanks [1-212] (tanks) arrived from [7/14].
+  3:artillery [1-200] (artillery) arrived from [7/14].
+  4:Ancient Battlemechs [1-22] (mechs) moved to [5/15].
+
+mountain [4/16]
+  5:Ancient Battlemechs [1-22] (mechs) arrived from [5/15].
+  5:Ancient Battlemechs [1-22] (mechs) captured Alamut [6-3] - now designated [1-42].
+
+Order template
+--------------
+
+player 6  # Duestermark
+
+unit 2205  # tanks in forest [2/10]
+
+unit 1002  # 2. Inf Duester in forest [2/10]
+
+unit 1  # Duesternbrook in forest [2/10]
+
+unit 2212  # tanks in plain [2/11]
+
+unit 2203  # tanks in forest [3/11]
+
+unit 6  # Amsee in plain [0/12]
+
+unit 2201  # tanks in plain [5/12]
+
+unit 2204  # tanks in plain [5/12]
+
+unit 1181  # 1st.Inf Gorge in plain [5/12]
+
+end
+</pre>
+		<h3 id="orders">Beispielbefehle</h3>
+<pre>
+player 1  # Kalamath
+
+unit 52  # settlers in plain [21/7]
+ move s
+
+unit 38  # Ancient Battlemechs in plain [10/8]
+ move sw
+ move s
+ move s
+ move sw
+
+unit 25  # settlers in plain [10/8]
+ explore
+
+unit 51  # settlers in forest [5/9]
+ move sw
+
+unit 226  # tanks in mountain [10/9]
+
+unit 39  # Ancient Battlemechs in forest [21/9]
+ move nw
+ move sw
+ move nw
+
+unit 80  # infantry in forest [21/9]
+ explore
+
+end
+</pre>
+
+	</body>
+</html>
