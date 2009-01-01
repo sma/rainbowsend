@@ -1,0 +1,830 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Rainbow's End Rules</title>
+		<style type="text/css">
+			html { margin: 0; padding: 0; background: #FFE; }
+			body { margin: 0 auto; padding: 1em; width: 700px; background: white; border: 1px solid #EEA; font-family: Georgia, serif; font-size: 11pt; }
+			h1 { color: #EA0; font-size: 15pt; }
+			h2 { color: #333; font-size: 13pt; }
+			h3 { color: #A60; font-size: 11pt; }
+			a { color: #740; }
+			dt { color: #A60; font-weight: bold; }
+			pre { margin: 1em; padding: .5em; color: #330; border:1px solid #EEA; font-size: 8pt; }
+		</style>
+	</head>
+	<body>
+<center>
+  <h1>Rainbow's End v1.3</h1>
+  <p>Copyright (C) 2001 by Russell Wallace</p>
+</center>
+
+<p>
+
+<a name="Summary contents"><h2>Summary contents</h2></a>
+
+<p>
+
+<ul>
+<li><a href="#Summary contents"><b>Summary contents</b></a></li>
+<li><a href="#Detailed contents"><b>Detailed contents</b></a></li>
+
+<li><a href="#Introduction"><b>Introduction</b></a></li>
+<li><a href="#The world"><b>The world</b></a></li>
+<li><a href="#Units"><b>Units</b></a></li>
+<li><a href="#Time"><b>Time</b></a></li>
+<li><a href="#Combat"><b>Combat</b></a></li>
+<li><a href="#Entity numbers"><b>Entity numbers</b></a></li>
+<li><a href="#Orders"><b>Orders</b></a></li>
+<li><a href="#Hints for new players"><b>Hints for new players</b></a></li>
+</ul>
+
+<p>
+
+<a name="Detailed contents"><h2>Detailed contents</h2></a>
+
+<p>
+
+<ul>
+
+<li><a href="#Summary contents"><b>Summary contents</b></a></li>
+
+<li><a href="#Detailed contents"><b>Detailed contents</b></a></li>
+
+<li><a href="#Introduction"><b>Introduction</b></a></li>
+
+<li><a href="#The world"><b>The world</b></a></li>
+
+<li><a href="#Units"><b>Units</b></a></li>
+
+<li><a href="#Time"><b>Time</b></a></li>
+<ul>
+<li><a href="#Time-Orders">Orders</a></li>
+<li><a href="#Time-Phases">Phases</a></li>
+</ul>
+
+<li><a href="#Combat"><b>Combat</b></a></li>
+
+<ul>
+<li><a href="#Combat-Casualties">Casualties</a></li>
+<li><a href="#Combat-Cities">Cities</a></li>
+<li><a href="#Combat-Indirect fire">Indirect fire</a></li>
+</ul>
+
+<li><a href="#Entity numbers"><b>Entity numbers</b></a></li>
+<ul>
+<li><a href="#Entity numbers-Players">Players</a></li>
+<li><a href="#Entity numbers-Units">Units</a></li>
+<li><a href="#Entity numbers-Hexes">Hexes</a></li>
+
+<li><a href="#Entity numbers-Unit types">Unit types</a></li>
+<li><a href="#Entity numbers-Directions">Directions</a></li>
+</ul>
+
+<li><a href="#Orders"><b>Orders</b></a></li>
+<ul>
+<li><a href="#Orders-Build">Build</a></li>
+<li><a href="#Orders-Drop">Drop</a></li>
+<li><a href="#Orders-Email">Email</a></li>
+<li><a href="#Orders-Fire">Fire</a></li>
+
+<li><a href="#Orders-Friendly">Friendly</a></li>
+<li><a href="#Orders-Give">Give</a></li>
+<li><a href="#Orders-Hostile">Hostile</a></li>
+<li><a href="#Orders-Move">Move</a></li>
+<li><a href="#Orders-Name">Name</a></li>
+<li><a href="#Orders-Null">Null</a></li>
+<li><a href="#Orders-Quit">Quit</a></li>
+<li><a href="#Orders-Wait">Wait</a></li>
+</ul>
+
+<li><a href="#Hints for new players"><b>Hints for new players</b></a></li>
+<ul>
+<li><a href="#Hints for new players-The middle game">The middle game</a></li>
+<li><a href="#Hints for new players-The end game">The end game</a></li>
+</ul>
+
+</ul>
+
+<p>
+
+<a name="Introduction"><h2>Introduction</h2></a>
+
+<p>
+
+Rainbow's End is an empire building strategy game played by electronic mail. Begin with a single settlement on an unknown world and send out pioneers to explore new territory, build cities and expand your domain. Other players will have the same idea, and you'll need to recruit soldiers and build armored vehicles to defeat your enemies in battle and claim the land for your own.
+
+<p>
+
+The object of the game is to conquer the world. The game ends when all players but one have been eliminated or conceded defeat. Alliance victories may be allowed at the moderator's discretion. (It will normally be announced before start of play whether alliance victories are allowed, and if so, what is the maximum number of players who may win together.)
+
+<p>
+
+Each turn you will receive a report by email detailing the status of your assets in the game (and showing only those things that are actually visible to your forces). Moves are made by sending a list of orders as a plain text message to the game program. At the next turn update, the program will process everyone's moves at the same time and send out new reports. This continues until someone has won the game.
+
+<p>
+
+<a name="The world"><h2>The world</h2></a>
+
+<p>
+
+The game is played on a hex map. Each hex is identified by coordinates where 0/0 is the top left:
+
+
+<p>
+
+<pre>
+  _____         _____
+ /     \       /     \
+/  0/0  \_____/  2/0  \_____
+\       /     \       /     \
+ \_____/  1/0  \_____/  3/0  \
+ /     \       /     \       /
+/  0/1  \_____/  2/1  \_____/
+\       /     \       /     \
+ \_____/  1/1  \_____/  3/1  \
+ /     \       /     \       /
+/  0/2  \_____/  2/2  \_____/
+\       /     \       /     \
+ \_____/  1/2  \_____/  3/2  \
+ /     \       /     \       /
+/  0/3  \_____/  2/3  \_____/
+\       /     \       /     \
+ \_____/  1/3  \_____/  3/3  \
+       \       /     \       /
+        \_____/       \_____/
+</pre>
+
+<p>
+
+The above map is 4 by 4. The map size actually used in the game will depend on the number of players, and will be shown on your turn report. There are six possible directions of movement: N, NE, SE, S, SW and NW.
+
+<p>
+
+Each hex has a terrain type of water (the sea or a lake), plain, forest or mountain:
+
+<p>
+
+<table border>
+
+<tr>
+<th>Terrain</th>
+<th>Movement cost</th>
+</tr>
+
+<tr>
+<td>Water</td>
+<td>N/A</td>
+</tr>
+
+<tr>
+<td>Plain</td>
+
+<td>1</td>
+</tr>
+
+<tr>
+<td>Forest</td>
+<td>2</td>
+</tr>
+
+<tr>
+<td>Mountain</td>
+<td>3</td>
+</tr>
+
+</table>
+
+<p>
+
+<b>Movement cost</b> is the number of movement points it takes to enter a hex of that type; rougher terrain reduces speed. Water is currently an absolute barrier. (Ships are on the list of features to be added.)
+
+<p>
+
+<a name="Units"><h2>Units</h2></a>
+
+<p>
+
+Units are things controlled by a player. The following types are available:
+
+<p>
+
+<table border>
+  <tr> 
+    <th>Unit</th>
+    <th>Build cost</th>
+    <th>Upkeep cost</th>
+    <th>Movement</th>
+    <th>Attack</th>
+    <th>Defense</th>
+    <th>Range</th>
+  </tr>
+  <tr> 
+    <td>City</td>
+    <td>20</td>
+    <td>-10</td>
+    <td>0</td>
+    <td>0</td>
+    <td>N/A</td>
+    <td>0</td>
+  </tr>
+  <tr> 
+    <td>Settlers</td>
+    <td>10</td>
+    <td>1</td>
+    <td>3</td>
+    <td>0</td>
+    <td>2</td>
+    <td>0</td>
+  </tr>
+  <tr> 
+    <td>Infantry</td>
+    <td>10</td>
+    <td>1</td>
+    <td>3</td>
+    <td>4</td>
+    <td>4</td>
+    <td>0</td>
+  </tr>
+  <tr> 
+    <td>Tanks</td>
+    <td>20</td>
+    <td>2</td>
+    <td>6</td>
+    <td>8</td>
+    <td>6</td>
+    <td>0</td>
+  </tr>
+  <tr> 
+    <td>Artillery</td>
+    <td>20</td>
+    <td>2</td>
+    <td>3</td>
+    <td>1</td>
+    <td>4</td>
+    <td>2</td>
+  </tr>
+</table>
+
+<p>
+
+<b>Build cost</b> is the amount of money it costs to build a unit. Units are built by cities. A city can build up to 5 units per turn, provided sufficient funds are available.
+
+<p>
+
+The exception to this is cities themselves, which are built by settlers. The new city must be at least 3 hexes from any existing one (yours or any other player's). When construction is complete, the settlers disappear (to become part of the population of the new city).
+
+<p>
+
+Units cannot be issued orders on the turn they are built. They do incur upkeep cost (or generate income). They can also participate in combat if attacked.
+
+<p>
+
+<b>Upkeep cost</b> is the amount of money per turn it costs to maintain a unit. If this is not available, units start being disbanded. Cities are again the exception; rather than costing money, they are your source of income.
+
+<p>
+
+<b>Movement</b> is the number of movement points the unit has per turn. Remember that rugged terrain costs more movement points to enter.
+
+<p>
+
+<b>Attack</b> and <b>Defense</b> are the unit's combat ratings; how these work is explained in the Combat section.
+
+
+<p>
+
+<b>Range</b> is the maximum range (in hexes) at which the unit can deliver an indirect fire attack.
+
+<p>
+
+If all of a player's units are captured or destroyed, he is eliminated from the game. If a player quits the game (and the position is not taken over by another player) then all of his units simply sit there doing nothing (except defending themselves if attacked). The exception is cities, which continue building as many infantry units as available funds permit. This is to reduce the impact on game balance - an abandoned position's cities don't become undefended prizes for another player to grab without effort.
+
+<p>
+
+<a name="Time"><h2>Time</h2></a>
+
+<p>
+
+The overall sequence of events each turn is:
+
+<p>
+
+<ol>
+<li>General orders are processed.</li>
+<li>Unit orders are processed.</li>
+<li>Income is gathered.</li>
+<li>Upkeep is paid.</li>
+<li>Reports are sent out.</li>
+</ol>
+
+<p>
+
+The important points to remember:
+
+
+<ul>
+<li>Income and upkeep happen after all orders have been processed, so they are incurred for newly built units (and avoided for newly destroyed units).</li>
+<li>Income happens before upkeep so you can go ahead and spend all your cash reserves in your orders, provided your cities will generate enough money at the end of the turn to support your units.</li>
+</ul>
+
+<p>
+
+<a name="Time-Orders"><h3>Orders</h3></a>
+
+<p>
+
+General orders - the ones issued to your empire as a whole, e.g. declaring another empire as friendly or hostile, or changing your email address - are handled first, then orders issued to specific units are handled.
+
+<p>
+
+The way unit orders are processed is basically:
+
+<p>
+
+<ol>
+<li>Every unit carries out its first order.</li>
+<li>Every unit carries out its second order.</li>
+<li>Then third and so on until all orders have been handled.</li>
+</ol>
+
+<p>
+
+So:
+
+<p>
+
+<ul>
+<li>All players' orders are handled at the same time.</li>
+<li>The sequence in which units get to act is chosen at random for each order slot. So all units perform their first order in some random sequence, then they all perform their second order in some (probably different) random sequence and so on.</li>
+</ul>
+
+<p>
+
+This suffices for a basic understanding of what happens when; if you're reading the rules for the first time, you may want to skip ahead to the next section now and come back to the rest of this one later.
+
+<p>
+
+<a name="Time-Phases"><h3>Phases</h3></a>
+
+<p>
+
+Within each order slot, orders are carried out in the following phases:
+
+<p>
+
+<ol>
+<li>Most types of orders</li>
+<li><code>MOVE</code> orders</li>
+<li>Combat</li>
+<li>Capturing of cities</li>
+<li><code>BUILD</code> and <code>DROP</code> orders</li>
+
+</ol>
+
+<p>
+
+For example, suppose the program is handling every unit's first order. It checks to see which ones aren't trying to <code>MOVE</code>, <code>BUILD</code> or <code>DROP</code> and does those first. Then units trying to <code>MOVE</code> as their first order do that, then combat and capturing of cities happens, and finally <code>BUILD</code> and <code>DROP</code> orders are carried out.
+
+
+<p>
+
+Then the whole process is repeated for every unit's second order, and so on until all orders have been carried out. Note that phases apply <i>within</i> an order slot. Suppose unit A tries to do:
+
+<p>
+
+<pre>
+move north
+name "1st Recon"
+</pre>
+
+<p>
+
+and unit B tries to do:
+
+<p>
+
+<pre>
+move south
+move south
+</pre>
+
+<p>
+
+Both units will move one hex, then A will change its name, then B will move a second hex.
+
+<p>
+
+These rules look complicated, but they're designed to make sure the results are usually reasonable. The idea is that most of the time, you don't need to worry about your orders failing because of unexpected quirks in the sequencing rules; they should give counterintuitive results only in rare cases.
+
+<p>
+
+<a name="Combat"><h2>Combat</h2></a>
+
+<p>
+
+Combat occurs when hostile units end up in the same hex. Every unit gets to make an attack, in some random sequence. This is repeated each order slot until one side has won the battle (or until one side moves away or all 100 order slots have been processed).
+
+<p>
+
+When a unit makes an attack, it chooses a target at random from all the units in the hex to which it is hostile (except cities). Unarmed units of course cannot attack. Destroyed units are removed from the game immediately.
+
+<p>
+
+<a name="Combat-Casualties"><h3>Casualties</h3></a>
+
+<p>
+
+When unit A attacks unit B, the chance of success depends on A's attack value and B's defense value. The exact probability is attack/(attack+defense). So an infantry unit (attack 4) has a 40% chance of destroying a tank unit (defense 6).
+
+<p>
+
+For simplicity, casualties within units aren't tracked. A unit is considered to either still be in existence as an effective fighting force, or not (in which case it's removed from the game).
+
+<p>
+
+<a name="Combat-Cities"><h3>Cities</h3></a>
+
+<p>
+
+Cities are a special case. They are never targeted for destruction during battle. Instead if the attacker wins the battle (i.e. armed units hostile to the city are still standing when combat ends) the city is captured intact. (You can use the <code>DROP</code> order to raze a city to the ground if it's about to be captured, though this won't work if an adjacent enemy army manages to march in and seize the city in the first order slot.)
+
+<p>
+
+<a name="Combat-Indirect fire"><h3>Indirect fire</h3></a>
+
+<p>
+
+Artillery units have a special ability. In addition to participating directly in combat as normal, they can carry out indirect fire missions. These are aimed at an entire hex, and each artillery unit gets a shot at destroying <i>every</i> enemy unit in the hex (except cities). This means there is a tradeoff between stacking many units together in a hex to concentrate your forces, and spreading them out to reduce casualties from artillery fire.
+
+
+<p>
+
+Remember that <code>FIRE</code> orders come before <code>MOVE</code> orders. So as in real life you can lay down a barrage on the enemy just before your troops go in.
+
+<p>
+
+An artillery unit can only carry out one fire mission per turn (though it can participate in any number of regular battles).
+
+<p>
+
+<a name="Entity numbers"><h2>Entity numbers</h2></a>
+
+Of the various entities in the game that can be referred to, players and units are assigned reference numbers for this purpose, hexes are referred to by coordinates and unit types and directions by name.
+
+<p>
+
+<a name="Entity numbers-Players"><h3>Players</h3></a>
+
+<p>
+
+Every player in the game is assigned a number starting from 1. On turn reports, the number is shown in square brackets after the name e.g. <code>The Dark Legions [15]</code>. When entering orders, the number is always used rather than the name. (This cuts down on typing errors and eliminates problems that would otherwise be caused by duplicate names.)
+
+<p>
+
+<a name="Entity numbers-Units"><h3>Units</h3></a>
+
+<p>
+
+Units are also assigned numbers. By default these start from 1, though you have control over what number will be given to newly built units. (Valid numbers are from 1 to 99999.) Again the number is shown in square brackets on turn reports, and is always used instead of the name when entering orders.
+
+<p>
+
+The unit number sequence is significant: units are listed in that order on your turn report (so you might want to keep similar types of units together) and also if units have to be dissolved for lack of upkeep funds, the lowest numbered ones are dissolved first.
+
+<p>
+
+How do you refer to other players' units when writing orders, since they may share unit numbers with you? Their unit numbers will be preceded by their player number. Suppose you run into player 7's tank unit 100 and you want to target it with artillery fire. It will be listed like <code>Tanks [7-100]</code> on your turn report, and you can refer to it as <code>7-100</code> in your orders. (No spaces around the hyphen, and you must always use the player number even if that's the only unit 100 you've seen.)
+
+<p>
+
+<a name="Entity numbers-Hexes"><h3>Hexes</h3></a>
+
+<p>
+
+Hexes are referred to by coordinates separated by a slash. For example, the hex one space southeast from the top left is referred to as <code>1/0</code>. (No spaces around the slash. Remember to distinguish a slash for hexes from a hyphen for other players' units.)
+
+<p>
+
+<a name="Entity numbers-Unit types"><h3>Unit types</h3></a>
+
+<p>
+
+Unit <i>types</i> have no numbers and are referred to (for <code>BUILD</code> orders) by name e.g. <code>City</code>, <code>Settlers</code> etc. (This saves having to look up another list of numbers for things that don't have duplicates and don't change from game to game.)
+
+
+<p>
+
+<a name="Entity numbers-Directions"><h3>Directions</h3></a>
+
+<p>
+
+Directions for <code>FIRE</code> or <code>MOVE</code> orders are referred to by their abbreviations: <code>N</code>, <code>NE</code>, <code>SE</code>, <code>S</code>, <code>SW</code> or <code>NW</code>. (You can also use the full name - <code>NORTH</code> etc - if you prefer.)
+
+
+<p>
+
+<a name="Orders"><h2>Orders</h2></a>
+
+<p>
+
+Orders should be sent to the game program at the email address specified by the moderator. The subject line is ignored but the message body should look like:
+
+<p>
+
+<pre>
+player &lt;your empire number&gt;
+
+unit &lt;unit number&gt;
+
+    orders for this unit
+    more orders for this unit
+
+unit &lt;another unit number&gt;
+    orders for another unit
+    more orders for another unit
+
+end
+</pre>
+
+<p>
+
+The <code>PLAYER</code> line is critical, without it your orders will be ignored. The <code>END</code> line is less important; it can be omitted if you choose, though if your mailer attaches a signature to the end of your messages, you will likely get some spurious error messages when the game program tries to interpret the signature as orders. Indentation and blank lines don't matter, nor does the distinction between upper and lower case (except for names which should of course be in mixed case). Anything from a # to the end of a line is treated as a comment and ignored.
+
+
+<p>
+
+Your turn report will have an order template at the end which you can fill in and use. The template looks like:
+
+<p>
+
+<pre>
+player 15  # The Dark Legions
+
+unit 1  # City in Plain [10/20]
+
+unit 2  # Settlers in Forest [13/20]
+
+end
+</pre>
+
+<p>
+
+You can simply enter the orders for each unit and mail the filled-in template. <code>EMAIL</code>, <code>NAME</code> and <code>QUIT</code> can be entered for your empire as a whole rather than any specific unit. In that case, write them after the <code>PLAYER</code> line and before the first <code>UNIT</code> line.
+
+
+<p>
+
+A list of available orders follows. Required parameters are enclosed in &lt;angle brackets&gt;, optional parameters in [square brackets]; the brackets themselves should never be entered.
+
+<p>
+
+Names with spaces in them must be enclosed in "quotes". The quotes <i>should</i> be entered when you are writing your orders, this is to prevent spaces in names from confusing the program.
+
+<p>
+
+<a name="Orders-Build"><h3>Build</h3></a>
+
+<p>
+
+<code>BUILD "unit type" [number] [name]</code>
+
+<p>
+
+Build a new unit. Settlers can only build a city (and it must be at least 3 hexes from any existing city). Cities can build any other type of unit.
+
+<p>
+
+<b>Number</b> is the starting unit number to assign. Suppose, say, you want to number all your cities from 1, your settlers from 100 and your military units from 200. When building military units then, you can specify 200 for the unit number. The program will then check - do you already have a 200? If so, do you have a 201? And so on until the next free number is found to assign to the new unit. If not specified, the sequence starts at 1.
+
+<p>
+
+<b>Name</b> is the name that will be assigned to the new unit. If not specified, it will be named after its type, e.g. cities will be called "City" and so on. Unlike the unit number, the name can be changed later.
+
+
+<p>
+
+<a name="Orders-Drop"><h3>Drop</h3></a>
+
+<p>
+
+<code>DROP</code>
+
+<p>
+
+Drop the unit, removing it from the game (and thereby paying no more upkeep costs for it).
+
+<p>
+
+<a name="Orders-Email"><h3>Email</h3></a>
+
+<p>
+
+<code>EMAIL &lt;new email address&gt;</code>
+
+<p>
+
+Change the address to which your turn reports are sent.
+
+<p>
+
+<a name="Orders-Fire"><h3>Fire</h3></a>
+
+<p>
+
+<code>FIRE &lt;hex&gt;</code>
+<br>
+<code>FIRE &lt;direction&gt;</code>
+
+<p>
+
+Call an indirect fire mission on a target hex. (You can also specify the direction of an adjacent hex to attack.) Only artillery units can do this, and then only once per turn.
+
+<p>
+
+If friendly units are present in the target hex the order will be cancelled. However, a fire mission called on an empty hex will still be carried out (thus using up the unit's indirect fire ability for the turn).
+
+<p>
+
+<a name="Orders-Friendly"><h3>Friendly</h3></a>
+
+<p>
+
+<code>FRIENDLY &lt;player&gt;</code>
+
+<p>
+
+Declare a player as friendly.
+
+<p>
+
+<a name="Orders-Give"><h3>Give</h3></a>
+
+<p>
+
+<code>GIVE &lt;player&gt; &lt;qty&gt;</code>
+
+<p>
+
+Give a quantity of money to another player.
+
+<p>
+
+<a name="Orders-Hostile"><h3>Hostile</h3></a>
+
+<p>
+
+<code>HOSTILE &lt;player&gt;</code>
+
+<p>
+
+Declare a player as hostile.
+
+<p>
+
+<a name="Orders-Move"><h3>Move</h3></a>
+
+<p>
+
+<code>MOVE &lt;hex&gt;</code>
+<br>
+<code>MOVE &lt;direction&gt;</code>
+
+<p>
+
+Move to an adjacent hex. You can specify which hex to move into, or the direction to travel. The unit must have enough movement points left for the destination terrain type.
+
+<p>
+
+If the destination contains enemy units, a battle will occur; if the defenders are defeated, the attacking units will move in. Exception: if an attacking force would end up consisting only of unarmed units, the attack (and the move) is cancelled.
+
+<p>
+
+<a name="Orders-Name"><h3>Name</h3></a>
+
+<p>
+
+<code>NAME "new name"</code>
+
+<p>
+
+Change the name of your empire or a unit. Names may be up to 40 characters long and may not contain square brackets. Remember to put quotes around the name if it contains spaces.
+
+<p>
+
+<a name="Orders-Null"><h3>Null</h3></a>
+
+<p>
+
+<code>NULL</code>
+
+<p>
+
+Do nothing for one order slot.
+
+<p>
+
+<a name="Orders-Quit"><h3>Quit</h3></a>
+
+<p>
+
+<code>QUIT</code>
+
+<p>
+
+Quit the game. No report will be sent on the turn the <code>QUIT</code> order is issued.
+
+<p>
+
+<a name="Orders-Wait"><h3>Wait</h3></a>
+
+<p>
+
+<code>WAIT</code>
+
+<p>
+
+Orders following <code>WAIT</code> will be delayed until the last order slots of the turn.
+
+<p>
+
+<a name="Hints for new players"><h2>Hints for new players</h2></a>
+
+<p>
+
+On your first turn you should:
+
+<p>
+
+<ul>
+<li>Pick an appropriate name for your empire.</li>
+<li>Build a unit of some type, probably settlers, at your starting city.</li>
+<li>Perhaps establish email contact with other players.</li>
+</ul>
+
+<p>
+
+On the following turns you'll probably want to:
+
+<p>
+
+<ul>
+<li>Explore your surroundings until you encounter other players.</li>
+<li>Build as many cities as possible, territory permitting.</li>
+<li>Build as many more units as you can afford, either settlers or military units.</li>
+</ul>
+
+<p>
+
+In the opening turns of empire building games, players are usually focused on building up their economies as quickly as possible, maintaining only minimum military forces to guard against surprise attack.
+
+<p>
+
+<a name="Hints for new players-The middle game"><h3>The middle game</h3></a>
+
+<p>
+
+The transition to the middle game starts happening when people run short of territory and the only way to expand further is at someone else's expense. The most effective way to do this is generally to choose a neighbor and launch a surprise attack with allies, aimed at eliminating your target quickly before he can mount an effective response. Therefore as the transition approaches, it's worth giving thought to the following issues:
+
+<p>
+
+<ul>
+<li>Not looking like an easy target for an early attack.</li>
+<li>Being on good terms with your neighbors. You'll have to fight eventually, but it's better to be able to choose when and under what circumstances.</li>
+<li>Obtaining as much information as you can about what's going on in your area.</li>
+<li>Choosing potential victims and allies.</li>
+
+</ul>
+
+<p>
+
+Conversely if you find yourself on the receiving end of an attack - either a bolt from the blue, or as a result of escalating border tensions, or a counterstrike when you invaded someone who was stronger than you thought - you should try to get help. Remember that it needn't necessarily come from your own neighbors. You could contact someone on the <i>other</i> side of your enemy: "Hey, this guy's army is busy fighting me - now'd be a good time to stab him in the back and grab a chunk of his territory!"
+
+<p>
+
+<a name="Hints for new players-The end game"><h3>The end game</h3></a>
+
+<p>
+
+The end game is the time at which one or a few players have amassed sufficient strength to be in sight of winning the game. If you find yourself in such a position of strength, you will likely want to:
+
+<ul>
+
+<li>Destroy your strongest opponents as a matter of priority, since these are the ones who present a threat to your chances of victory.</li>
+<li>Use diplomacy to try to avoid a situation where most of the surviving players ally to pull you down.</li>
+<li>If the game you are in allows alliance victories, consider who you want to win with or whether you want to go for a solo victory.</li>
+</ul>
+
+Conversely if you find one or more other players are well ahead of you, you should consider the following:
+
+<ul>
+<li>Try to form a grand alliance with everyone else to pull down the leader. Point out to the other players that the leading player must be defeated for them to have any chance of winning.</li>
+<li>On the other hand, some players would rather go for a respectable showing at the end of the game than an all or nothing gamble. If you choose to do this you should try to safeguard your position and grab territory from defeated players while not antagonizing the stronger powers.</li>
+<li>If alliance victories are allowed, try to ally with one or more of the stronger players and support your allies so your team can win.</li>
+</ul>
+
+Good luck!
+
+</body>
+
+</html>
+

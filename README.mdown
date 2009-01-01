@@ -1,0 +1,53 @@
+Rainbow's End
+=============
+
+Rainbow's End is a [Play by E-Mail][pbem] (PBEM) game that was created in 2001
+by Russell Wallace. Because Russell, who created very successful games like
+Galaxy and Atlantis in the early nineties, liberally provided the C source of
+Rainbow's End, I ported the game to the then-new Ruby 1.6 in 2001 to learn the
+language. The pickaxe book was just published.
+
+[pbem]: http://en.wikipedia.org/wiki/PBEM
+
+I haven't looked at the source for years, but I'll share it in (the unlikely)
+case somebody is interested. The `readme.html` has more information of how to
+setup and run a game - these information are unfortunately written in German.
+The `rules.html` file contains the rules, written in English by Russell.
+
+The game isn't without flaws. I remember to play it only once. Tanks are superior to artillery and infantry. I'd suggest to change the rules so that only infantry can conquer cities. Still, it was fun.
+
+Nowadays, it's probably just a blast from the past :)
+
+
+Todo
+----
+
+Code should probably be moved into a `lib` and `script` folder. Setup and game
+data should then go into another folder per game and should not be part of the
+check-in. Using a web front end to send in orders and receive reports might be
+a more modern approach and interesting ad-on. Reports could also use HTML.
+Then, the game should be better balanced.
+
+
+License
+-------
+
+Copyright (c) 2001,2009 Stefan Matthias Aust
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
