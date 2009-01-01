@@ -10,7 +10,7 @@ language. The pickaxe book was just published.
 [pbem]: http://en.wikipedia.org/wiki/PBEM
 
 I haven't looked at the source for years, but I'll share it in (the unlikely)
-case somebody is interested. The `readme.html` has more information of how to
+case somebody is interested. The `index.html` has more information of how to
 setup and run a game - these information are unfortunately written in German.
 The `rules.html` file contains the rules, written in English by Russell.
 
